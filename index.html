@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f7f8f4" />
+    <meta name="description" content="Encuentra opciones de comida para tu pausa en el campus, según tu tiempo, presupuesto y preferencias." />
+    <title>NutriCampus — tu pausa, mejor elegida</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="#inicio" data-page="inicio" aria-label="NutriCampus, ir al inicio">
+          <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M28.9 6.8c-8.4.3-15.2 2.4-18.1 8.4-2 4.2-.8 8.6 2.2 10.2 3.2 1.7 7.3-.2 9.6-4.4 2.5-4.6 3.4-10.5 6.3-14.2Z"/><path d="M8 29c4.5-6.8 9.2-10.6 15.9-13.7"/></svg></span>
+          <span>Nutri<span>Campus</span></span>
+        </a>
+        <nav class="main-nav" aria-label="Navegación principal">
+          <button class="nav-item is-active" data-page="inicio" aria-current="page"><span class="nav-icon" aria-hidden="true">⌂</span>Inicio</button>
+          <button class="nav-item" data-page="explorar"><span class="nav-icon" aria-hidden="true">⌕</span>Explorar</button>
+          <button class="nav-item" data-page="planificar"><span class="nav-icon" aria-hidden="true">▦</span>Planificar</button>
+          <button class="nav-item" data-page="favoritos"><span class="nav-icon" aria-hidden="true">♡</span>Favoritos</button>
+          <button class="nav-item" data-page="perfil"><span class="nav-icon" aria-hidden="true">♙</span>Perfil</button>
+        </nav>
+        <button class="avatar-button" data-page="perfil" aria-label="Abrir perfil">A</button>
+      </div>
+    </header>
+
+    <main id="main-content" class="page-shell" tabindex="-1">
+      <div id="page-content" aria-live="polite" aria-busy="false"></div>
+    </main>
+
+    <nav class="mobile-nav" aria-label="Navegación móvil">
+      <button class="mobile-nav-item is-active" data-page="inicio" aria-current="page"><span aria-hidden="true">⌂</span>Inicio</button>
+      <button class="mobile-nav-item" data-page="explorar"><span aria-hidden="true">⌕</span>Explorar</button>
+      <button class="mobile-nav-item" data-page="planificar"><span aria-hidden="true">▦</span>Planificar</button>
+      <button class="mobile-nav-item" data-page="favoritos"><span aria-hidden="true">♡</span>Favoritos</button>
+      <button class="mobile-nav-item" data-page="perfil"><span aria-hidden="true">♙</span>Perfil</button>
+    </nav>
+
+    <dialog id="app-dialog" class="app-dialog" aria-labelledby="dialog-title">
+      <div id="dialog-content"></div>
+    </dialog>
+    <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+  </body>
+</html>
