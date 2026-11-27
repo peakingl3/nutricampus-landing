@@ -1,0 +1,793 @@
+# Backlog de Historias de Usuario (HU-001 a HU-048)
+
+## Épica EP01 – Configuración inicial mínima
+
+### HU-001: Ingreso rápido a la aplicación
+- **Descripción:** Como estudiante con poco tiempo, quiero ingresar a la aplicación sin completar un registro extenso, para empezar a usarla en pocos segundos.
+- **Criterios de Aceptación:**
+  - **CA01:** La pantalla de ingreso debe ofrecer la opción "Continuar como invitado" de forma visible.
+  - **CA02:** El ingreso con correo debe solicitar únicamente correo y contraseña.
+  - **CA03:** El sistema debe permitir llegar a la pantalla de inicio en no más de dos interacciones desde la apertura.
+- **Escenarios (Gherkin):**
+  1. **Ingreso como invitado**
+     - **DADO** que el estudiante abre la aplicación por primera vez
+     - **CUANDO** selecciona el botón "Continuar como invitado"
+     - **ENTONCES** el sistema lo lleva a la configuración inicial sin solicitar datos personales.
+  2. **Contraseña vacía**
+     - **DADO** que el estudiante eligió ingresar con su correo y dejó vacío el campo "Contraseña"
+     - **CUANDO** selecciona el botón "Ingresar"
+     - **ENTONCES** el sistema no avanza y muestra que la contraseña es obligatoria.
+
+### HU-002: Configuración mínima inicial
+- **Descripción:** Como estudiante con poco tiempo, quiero indicar mi tiempo habitual de pausa, mi presupuesto diario y mi lugar habitual, para recibir recomendaciones ajustadas sin llenar formularios extensos.
+- **Criterios de Aceptación:**
+  - **CA01:** La configuración debe solicitar como máximo tres datos: tiempo, presupuesto y lugar.
+  - **CA02:** Cada dato debe poder elegirse con opciones predefinidas, sin necesidad de escribir.
+  - **CA03:** El sistema debe mostrar el progreso del paso (por ejemplo, "1 de 3").
+  - **CA04:** Al finalizar, el sistema debe guardar los datos y mostrar la pantalla de inicio.
+- **Escenarios (Gherkin):**
+  1. **Configuración completa**
+     - **DADO** que el estudiante se encuentra en la configuración inicial
+     - **CUANDO** selecciona su tiempo, presupuesto y lugar, y pulsa "Continuar"
+     - **ENTONCES** el sistema guarda sus preferencias y muestra la pantalla de inicio.
+  2. **Dato pendiente**
+     - **DADO** que el estudiante no ha seleccionado su presupuesto
+     - **CUANDO** pulsa el botón "Continuar"
+     - **ENTONCES** el sistema indica el dato pendiente y conserva los valores ya elegidos.
+
+### HU-003: Omitir la configuración inicial
+- **Descripción:** Como estudiante que quiere probar la aplicación, quiero omitir la configuración inicial, para explorar las opciones antes de brindar mis datos.
+- **Criterios de Aceptación:**
+  - **CA01:** Cada paso de la configuración debe mostrar el botón "Omitir" de forma visible.
+  - **CA02:** Al omitir, el sistema debe usar valores por defecto, sin filtro de tiempo ni de presupuesto.
+  - **CA03:** El sistema debe mostrar un recordatorio discreto para completar la configuración más tarde.
+- **Escenarios (Gherkin):**
+  1. **Omitir configuración**
+     - **DADO** que el estudiante se encuentra en el primer paso de la configuración
+     - **CUANDO** selecciona el botón "Omitir"
+     - **ENTONCES** el sistema muestra la pantalla de inicio con recomendaciones generales.
+  2. **Recordatorio posterior**
+     - **DADO** que el estudiante omitió la configuración inicial
+     - **CUANDO** vuelve a la pantalla de inicio
+     - **ENTONCES** el sistema muestra un aviso discreto para completar sus preferencias.
+
+### HU-004: Editar preferencias desde el perfil
+- **Descripción:** Como estudiante cuyo horario cambia, quiero modificar mi tiempo, presupuesto y lugar desde mi perfil, para mantener actualizadas mis recomendaciones.
+- **Criterios de Aceptación:**
+  - **CA01:** El perfil debe mostrar las preferencias actuales del estudiante.
+  - **CA02:** Cada preferencia debe poder editarse con las mismas opciones de la configuración inicial.
+  - **CA03:** Al guardar, las recomendaciones deben actualizarse de inmediato.
+- **Escenarios (Gherkin):**
+  1. **Cambio de presupuesto**
+     - **DADO** que el estudiante se encuentra en su perfil con un presupuesto de S/ 8
+     - **CUANDO** cambia su presupuesto a S/ 12 y pulsa "Guardar"
+     - **ENTONCES** el sistema actualiza las recomendaciones con el nuevo monto.
+  2. **Cancelar edición**
+     - **DADO** que el estudiante modificó una preferencia y no la ha guardado
+     - **CUANDO** selecciona el botón "Cancelar"
+     - **ENTONCES** el sistema conserva los valores anteriores.
+
+### HU-005: Indicar alimentos que no consumo
+- **Descripción:** Como estudiante con preferencias o restricciones alimentarias, quiero indicar los alimentos que no consumo, para no recibir alternativas que no puedo o no quiero comer.
+- **Criterios de Aceptación:**
+  - **CA01:** El sistema debe ofrecer una lista de alimentos comunes seleccionables (por ejemplo, lácteos, frutos secos o mariscos).
+  - **CA02:** Las alternativas que contengan alimentos excluidos no deben aparecer en recomendaciones ni listados.
+  - **CA03:** La selección debe poder modificarse desde el perfil.
+- **Escenarios (Gherkin):**
+  1. **Excluir un alimento**
+     - **DADO** que el estudiante marcó "mariscos" como alimento que no consume
+     - **CUANDO** consulta el listado de alternativas
+     - **ENTONCES** el sistema no muestra alternativas que contengan mariscos.
+  2. **Quitar una exclusión**
+     - **DADO** que el estudiante tenía excluidos los "lácteos"
+     - **CUANDO** desmarca esa opción en su perfil
+     - **ENTONCES** el sistema vuelve a incluir esas alternativas en los listados.
+
+### HU-006: Bienvenida breve
+- **Descripción:** Como estudiante nuevo en la aplicación, quiero ver una bienvenida breve que explique para qué sirve, para entender su utilidad antes de comenzar.
+- **Criterios de Aceptación:**
+  - **CA01:** La bienvenida debe tener como máximo tres pantallas.
+  - **CA02:** Cada pantalla debe incluir un mensaje corto y una imagen o icono.
+  - **CA03:** La bienvenida debe poder cerrarse en cualquier momento.
+- **Escenarios (Gherkin):**
+  1. **Recorrer la bienvenida**
+     - **DADO** que el estudiante abre la aplicación por primera vez
+     - **CUANDO** avanza con el botón "Siguiente" por las tres pantallas
+     - **ENTONCES** el sistema muestra los mensajes y, al final, el botón "Comenzar".
+  2. **Saltar la bienvenida**
+     - **DADO** que el estudiante se encuentra en la primera pantalla de bienvenida
+     - **CUANDO** selecciona el botón "Saltar"
+     - **ENTONCES** el sistema lo lleva directamente al ingreso o la configuración inicial.
+
+---
+
+## Épica EP02 – Decisión rápida según contexto
+
+### HU-007: Recomendación principal "qué puedo comer ahora"
+- **Descripción:** Como estudiante con poco tiempo, quiero ver al abrir la aplicación una recomendación principal con el botón "Ver opciones", para decidir con una sola acción visible.
+- **Criterios de Aceptación:**
+  - **CA01:** La pantalla de inicio debe mostrar una recomendación acorde con el tiempo y el presupuesto configurados.
+  - **CA02:** El botón "Ver opciones" debe ser la acción principal y destacar visualmente.
+  - **CA03:** El estudiante debe poder seleccionar una alternativa desde el inicio en tres interacciones o menos.
+- **Escenarios (Gherkin):**
+  1. **Recomendación según perfil**
+     - **DADO** que el estudiante configuró 10 minutos y S/ 10
+     - **CUANDO** abre la pantalla de inicio
+     - **ENTONCES** el sistema muestra una recomendación que cumple ambos límites.
+  2. **Ver más opciones**
+     - **DADO** que el estudiante observa la recomendación principal
+     - **CUANDO** selecciona el botón "Ver opciones"
+     - **ENTONCES** el sistema muestra el listado de alternativas disponibles.
+
+### HU-008: Filtro por tiempo disponible
+- **Descripción:** Como estudiante con clases seguidas, quiero filtrar las alternativas por el tiempo que tengo disponible (5, 10 o 15 minutos), para encontrar rápidamente una opción viable entre clases.
+- **Criterios de Aceptación:**
+  - **CA01:** El filtro debe ofrecer las opciones de 5, 10 y 15 minutos.
+  - **CA02:** El sistema debe mostrar solo alternativas con tiempo estimado menor o igual al seleccionado.
+  - **CA03:** El listado debe actualizarse sin salir de la pantalla.
+- **Escenarios (Gherkin):**
+  1. **Filtro de 10 minutos**
+     - **DADO** que el estudiante se encuentra en el listado de alternativas
+     - **CUANDO** selecciona el filtro "10 min"
+     - **ENTONCES** el sistema muestra solo alternativas de 10 minutos o menos.
+  2. **Sin resultados**
+     - **DADO** que el estudiante selecciona "5 min" y ninguna alternativa cumple ese tiempo
+     - **CUANDO** se aplica el filtro
+     - **ENTONCES** el sistema muestra un mensaje y sugiere ampliar el tiempo.
+
+### HU-009: Filtro por presupuesto
+- **Descripción:** Como estudiante que cuida su presupuesto, quiero filtrar las alternativas por un monto máximo en soles, para no gastar más de lo que puedo.
+- **Criterios de Aceptación:**
+  - **CA01:** El filtro debe permitir elegir un máximo con opciones predefinidas (por ejemplo, S/ 5, S/ 10 y S/ 15).
+  - **CA02:** El sistema debe mostrar solo alternativas con precio igual o menor al monto seleccionado.
+  - **CA03:** El precio debe mostrarse en cada alternativa con el formato "S/ X".
+- **Escenarios (Gherkin):**
+  1. **Filtro de S/ 10**
+     - **DADO** que el estudiante se encuentra en el listado de alternativas
+     - **CUANDO** selecciona un máximo de "S/ 10"
+     - **ENTONCES** el sistema muestra solo alternativas con precio igual o menor a S/ 10.
+  2. **Cambio de monto**
+     - **DADO** que el estudiante tiene aplicado el filtro "S/ 5"
+     - **CUANDO** selecciona el monto "S/ 15"
+     - **ENTONCES** el sistema actualiza el listado con las nuevas alternativas.
+
+### HU-010: Filtro por lugar y disponibilidad
+- **Descripción:** Como estudiante que compra dentro o cerca del campus, quiero filtrar las alternativas por lugar (cafetería, máquina expendedora o local cercano), para ver solo opciones que están a mi alcance.
+- **Criterios de Aceptación:**
+  - **CA01:** El filtro debe ofrecer los lugares disponibles en el campus y sus alrededores.
+  - **CA02:** El sistema debe mostrar solo alternativas asociadas al lugar seleccionado.
+  - **CA03:** Cada alternativa debe indicar su disponibilidad de forma referencial.
+- **Escenarios (Gherkin):**
+  1. **Filtro por cafetería**
+     - **DADO** que el estudiante se encuentra en el listado de alternativas
+     - **CUANDO** selecciona el lugar "Cafetería"
+     - **ENTONCES** el sistema muestra solo alternativas disponibles en la cafetería.
+  2. **Lugar sin alternativas**
+     - **DADO** que el estudiante selecciona un lugar sin alternativas registradas
+     - **CUANDO** se aplica el filtro
+     - **ENTONCES** el sistema informa que no hay alternativas y sugiere elegir otro lugar.
+
+### HU-011: Combinar y limpiar filtros
+- **Descripción:** Como estudiante con poco tiempo y presupuesto limitado, quiero combinar filtros y quitarlos con una sola acción, para ajustar mi búsqueda sin repetir pasos.
+- **Criterios de Aceptación:**
+  - **CA01:** El sistema debe permitir combinar los filtros de tiempo, presupuesto y lugar.
+  - **CA02:** Los filtros activos deben mostrarse como etiquetas visibles.
+  - **CA03:** El botón "Limpiar filtros" debe restablecer el listado completo.
+- **Escenarios (Gherkin):**
+  1. **Combinación de filtros**
+     - **DADO** que el estudiante tiene aplicado el filtro "10 min"
+     - **CUANDO** agrega el filtro "S/ 10"
+     - **ENTONCES** el sistema muestra solo alternativas que cumplen ambos filtros.
+  2. **Limpiar filtros**
+     - **DADO** que el estudiante tiene tres filtros activos
+     - **CUANDO** selecciona el botón "Limpiar filtros"
+     - **ENTONCES** el sistema quita los filtros y muestra el listado completo.
+
+### HU-012: Ordenar resultados
+- **Descripción:** Como estudiante que compara opciones, quiero ordenar los resultados por precio o por tiempo, para ver primero las alternativas más baratas o más rápidas.
+- **Criterios de Aceptación:**
+  - **CA01:** El sistema debe ofrecer los criterios "Menor precio" y "Menor tiempo".
+  - **CA02:** El ordenamiento debe respetar los filtros activos.
+  - **CA03:** El criterio de orden activo debe estar visible.
+- **Escenarios (Gherkin):**
+  1. **Ordenar por precio**
+     - **DADO** que el estudiante se encuentra en el listado de alternativas
+     - **CUANDO** selecciona el criterio "Menor precio"
+     - **ENTONCES** el sistema ordena las alternativas de menor a mayor precio.
+  2. **Mantener filtros**
+     - **DADO** que el estudiante tiene aplicado el filtro "10 min" y un orden activo
+     - **CUANDO** cambia el orden a "Menor tiempo"
+     - **ENTONCES** el sistema mantiene el filtro y reordena el listado.
+
+### HU-013: Mensaje cuando no hay resultados
+- **Descripción:** Como estudiante que aplica varios filtros, quiero recibir un mensaje claro con sugerencias cuando no haya resultados, para saber cómo ajustar mi búsqueda.
+- **Criterios de Aceptación:**
+  - **CA01:** El mensaje debe estar redactado en lenguaje sencillo.
+  - **CA02:** El sistema debe sugerir al menos una acción, como ampliar el tiempo o el presupuesto.
+  - **CA03:** El mensaje debe incluir el botón "Limpiar filtros".
+- **Escenarios (Gherkin):**
+  1. **Sin coincidencias**
+     - **DADO** que el estudiante aplicó filtros que ninguna alternativa cumple
+     - **CUANDO** el sistema actualiza el listado
+     - **ENTONCES** el sistema muestra el mensaje "No encontramos opciones con estos filtros" junto con sugerencias.
+  2. **Aplicar una sugerencia**
+     - **DADO** que el estudiante ve la sugerencia "Ampliar presupuesto"
+     - **CUANDO** selecciona esa sugerencia
+     - **ENTONCES** el sistema ajusta el filtro y muestra los nuevos resultados.
+
+### HU-014: Búsqueda por nombre
+- **Descripción:** Como estudiante que sabe lo que busca, quiero buscar alimentos o alternativas por nombre, para llegar directamente a lo que necesito.
+- **Criterios de Aceptación:**
+  - **CA01:** La barra de búsqueda debe estar visible en el listado de alternativas.
+  - **CA02:** El sistema debe mostrar coincidencias parciales mientras el estudiante escribe.
+  - **CA03:** Si no hay resultados, el sistema debe mostrar un mensaje con sugerencias.
+- **Escenarios (Gherkin):**
+  1. **Búsqueda exitosa**
+     - **DADO** que el estudiante ingresa "avena" en la barra de búsqueda
+     - **CUANDO** el sistema procesa el texto
+     - **ENTONCES** el sistema muestra las alternativas cuyo nombre contiene "avena".
+  2. **Sin coincidencias**
+     - **DADO** que el estudiante ingresa un término que no existe en el catálogo
+     - **CUANDO** se ejecuta la búsqueda
+     - **ENTONCES** el sistema muestra un mensaje y sugiere revisar la escritura o explorar el listado.
+
+### HU-015: Alternativas según el momento del día
+- **Descripción:** Como estudiante con horarios irregulares, quiero ver alternativas según el momento del día (desayuno, almuerzo o snack), para elegir algo adecuado a la hora en que como.
+- **Criterios de Aceptación:**
+  - **CA01:** El sistema debe ofrecer un selector de momento del día.
+  - **CA02:** Cada alternativa debe estar asociada al menos a un momento del día.
+  - **CA03:** La recomendación de la pantalla de inicio debe considerar la hora actual.
+- **Escenarios (Gherkin):**
+  1. **Seleccionar snack**
+     - **DADO** que el estudiante se encuentra en el listado de alternativas
+     - **CUANDO** selecciona el momento "Snack"
+     - **ENTONCES** el sistema muestra solo alternativas asociadas a ese momento.
+  2. **Recomendación según la hora**
+     - **DADO** que el estudiante abre la aplicación a media mañana
+     - **CUANDO** se carga la pantalla de inicio
+     - **ENTONCES** el sistema muestra una recomendación acorde con ese momento del día.
+
+---
+
+## Épica EP03 – Alternativas alimentarias
+
+### HU-016: Tarjeta de alternativa con tiempo, precio y etiqueta
+- **Descripción:** Como estudiante que compara opciones, quiero ver cada alternativa en una tarjeta con nombre, tiempo, precio y etiqueta, para comparar de un vistazo sin recorrer varias pantallas.
+- **Criterios de Aceptación:**
+  - **CA01:** La tarjeta debe mostrar nombre, tiempo, precio y al menos una etiqueta.
+  - **CA02:** La tarjeta debe ofrecer las acciones "Ver información" y "Seleccionar".
+  - **CA03:** El tiempo y el precio deben mostrarse con icono y texto.
+  - **CA04:** Todas las tarjetas del listado deben tener el mismo formato.
+- **Escenarios (Gherkin):**
+  1. **Visualización de tarjetas**
+     - **DADO** que el estudiante se encuentra en el listado de alternativas
+     - **CUANDO** se carga la pantalla
+     - **ENTONCES** el sistema muestra cada alternativa con nombre, tiempo, precio y etiqueta.
+  2. **Ver información**
+     - **DADO** que el estudiante observa una tarjeta del listado
+     - **CUANDO** pulsa el botón "Ver información"
+     - **ENTONCES** el sistema abre el detalle de esa alternativa.
+
+### HU-017: Detalle de una alternativa
+- **Descripción:** Como estudiante que evalúa una opción, quiero ver el detalle de una alternativa en una pantalla simple, para decidir con más información sin saturarme.
+- **Criterios de Aceptación:**
+  - **CA01:** El detalle debe mostrar descripción breve, tiempo, precio y lugar.
+  - **CA02:** El botón "Seleccionar" debe estar visible sin necesidad de desplazarse.
+  - **CA03:** Al volver al listado, el sistema debe conservar los filtros aplicados.
+- **Escenarios (Gherkin):**
+  1. **Abrir el detalle**
+     - **DADO** que el estudiante tiene un listado filtrado
+     - **CUANDO** pulsa "Ver información" en una tarjeta
+     - **ENTONCES** el sistema muestra descripción, tiempo, precio y lugar de la alternativa.
+  2. **Volver al listado**
+     - **DADO** que el estudiante se encuentra en el detalle de una alternativa
+     - **CUANDO** pulsa el botón "Volver"
+     - **ENTONCES** el sistema regresa al listado con los filtros anteriores.
+
+### HU-018: Información nutricional bajo demanda
+- **Descripción:** Como estudiante que quiere entender su elección, quiero acceder a información nutricional adicional solo cuando la solicite, para comprender mi decisión sin sobrecarga de información.
+- **Criterios de Aceptación:**
+  - **CA01:** La información ampliada no debe mostrarse por defecto en la tarjeta ni en el detalle.
+  - **CA02:** La información debe desplegarse con la acción "Ver más información nutricional".
+  - **CA03:** El contenido debe estar redactado en lenguaje cotidiano y ser breve.
+- **Escenarios (Gherkin):**
+  1. **Desplegar información**
+     - **DADO** que el estudiante se encuentra en el detalle de una alternativa
+     - **CUANDO** pulsa "Ver más información nutricional"
+     - **ENTONCES** el sistema muestra los nutrientes relevantes con una explicación breve.
+  2. **Ocultar información**
+     - **DADO** que el estudiante tiene desplegada la información nutricional
+     - **CUANDO** pulsa el botón "Ocultar"
+     - **ENTONCES** el sistema vuelve al detalle resumido.
+
+### HU-019: Sustituciones rápidas de snacks
+- **Descripción:** Como estudiante que suele consumir snacks azucarados o fritos, quiero ver sustituciones rápidas para mis snacks habituales, para cubrir la misma necesidad con una opción más nutritiva.
+- **Criterios de Aceptación:**
+  - **CA01:** El estudiante debe poder elegir su snack habitual desde una lista.
+  - **CA02:** El sistema debe mostrar al menos dos sustituciones con tiempo y precio comparables.
+  - **CA03:** Cada sustitución debe indicar qué necesidad cubre (energía o saciedad).
+- **Escenarios (Gherkin):**
+  1. **Ver sustituciones**
+     - **DADO** que el estudiante seleccionó un snack habitual
+     - **CUANDO** pulsa el botón "Ver sustituciones"
+     - **ENTONCES** el sistema muestra al menos dos alternativas con su tiempo y precio.
+  2. **Elegir una sustitución**
+     - **DADO** que el estudiante observa la lista de sustituciones
+     - **CUANDO** selecciona una de ellas
+     - **ENTONCES** el sistema abre el detalle de esa alternativa.
+
+### HU-020: Sustituciones de bebidas azucaradas o energéticas
+- **Descripción:** Como estudiante que recurre a bebidas azucaradas o energéticas para mantenerse activo, quiero ver alternativas de bebidas para reemplazarlas, para sostener mi energía durante el día de forma más saludable.
+- **Criterios de Aceptación:**
+  - **CA01:** El estudiante debe poder indicar su bebida habitual desde una lista.
+  - **CA02:** El sistema debe mostrar al menos dos alternativas con precio similar.
+  - **CA03:** Cada alternativa debe indicar la necesidad que cubre (energía, hidratación o saciedad).
+- **Escenarios (Gherkin):**
+  1. **Ver alternativas de bebidas**
+     - **DADO** que el estudiante eligió "bebida energética" como su bebida habitual
+     - **CUANDO** consulta las sustituciones
+     - **ENTONCES** el sistema muestra alternativas con su precio y tiempo.
+  2. **Alternativa fuera de presupuesto**
+     - **DADO** que una alternativa supera el presupuesto configurado
+     - **CUANDO** se muestra el listado de sustituciones
+     - **ENTONCES** el sistema identifica esa alternativa con la etiqueta "Sobre tu presupuesto".
+
+### HU-021: Etiqueta y filtro "Ligera"
+- **Descripción:** Como estudiante que debe seguir en clases, quiero identificar y filtrar las opciones ligeras, para continuar estudiando sin sentir pesadez ni sueño.
+- **Criterios de Aceptación:**
+  - **CA01:** Las alternativas ligeras deben mostrar la etiqueta "Ligera".
+  - **CA02:** El sistema debe ofrecer el filtro "Ligera" en el listado.
+  - **CA03:** La etiqueta debe acompañarse de texto y no depender solo del color.
+- **Escenarios (Gherkin):**
+  1. **Ver la etiqueta**
+     - **DADO** que el estudiante se encuentra en el listado de alternativas
+     - **CUANDO** una alternativa es considerada ligera
+     - **ENTONCES** el sistema muestra la etiqueta "Ligera" en su tarjeta.
+  2. **Filtrar opciones ligeras**
+     - **DADO** que el estudiante visualiza el listado completo
+     - **CUANDO** activa el filtro "Ligera"
+     - **ENTONCES** el sistema muestra solo las alternativas con esa etiqueta.
+
+### HU-022: Comparar dos alternativas
+- **Descripción:** Como estudiante indeciso entre dos opciones, quiero compararlas lado a lado, para elegir según precio, tiempo y saciedad.
+- **Criterios de Aceptación:**
+  - **CA01:** El estudiante debe poder marcar hasta dos alternativas para comparar.
+  - **CA02:** La vista de comparación debe mostrar atributos alineados (precio, tiempo, etiquetas y lugar).
+  - **CA03:** El estudiante debe poder seleccionar una alternativa desde la comparación.
+- **Escenarios (Gherkin):**
+  1. **Comparar alternativas**
+     - **DADO** que el estudiante marcó dos tarjetas del listado
+     - **CUANDO** pulsa el botón "Comparar"
+     - **ENTONCES** el sistema muestra los atributos de ambas alternativas lado a lado.
+  2. **Tercera selección**
+     - **DADO** que el estudiante ya marcó dos alternativas
+     - **CUANDO** intenta marcar una tercera
+     - **ENTONCES** el sistema indica que solo se pueden comparar dos y mantiene las marcadas.
+
+### HU-023: Seleccionar una alternativa y confirmar
+- **Descripción:** Como estudiante que ya decidió qué comer, quiero seleccionar una alternativa y recibir una confirmación, para saber que mi decisión quedó registrada y qué hacer a continuación.
+- **Criterios de Aceptación:**
+  - **CA01:** El botón "Seleccionar" debe mostrar una confirmación.
+  - **CA02:** La confirmación debe indicar el lugar y el tiempo estimado.
+  - **CA03:** El sistema debe ofrecer guardar la alternativa como favorita o programar un recordatorio.
+- **Escenarios (Gherkin):**
+  1. **Selección exitosa**
+     - **DADO** que el estudiante se encuentra en el detalle de una alternativa
+     - **CUANDO** pulsa el botón "Seleccionar"
+     - **ENTONCES** el sistema muestra una confirmación con el lugar y el tiempo estimado.
+  2. **Siguiente paso**
+     - **DADO** que el estudiante visualiza la confirmación de su selección
+     - **CUANDO** elige la opción "Guardar en favoritas"
+     - **ENTONCES** el sistema agrega la alternativa a su lista de favoritas.
+
+### HU-024: Dónde conseguir la alternativa
+- **Descripción:** Como estudiante que compra en el campus, quiero ver dónde puedo conseguir una alternativa, para llegar sin perder tiempo entre clases.
+- **Criterios de Aceptación:**
+  - **CA01:** El detalle debe mostrar el lugar o los lugares donde se consigue la alternativa.
+  - **CA02:** El sistema debe indicar horario o disponibilidad referencial.
+  - **CA03:** Si no hay información, el sistema debe mostrar el mensaje "Disponibilidad no confirmada".
+- **Escenarios (Gherkin):**
+  1. **Ver lugar de compra**
+     - **DADO** que el estudiante se encuentra en el detalle de una alternativa
+     - **CUANDO** revisa la sección "Dónde conseguirlo"
+     - **ENTONCES** el sistema muestra el lugar y la disponibilidad referencial.
+  2. **Sin información**
+     - **DADO** que la alternativa no tiene disponibilidad registrada
+     - **CUANDO** el estudiante abre su detalle
+     - **ENTONCES** el sistema muestra el mensaje "Disponibilidad no confirmada".
+
+### HU-025: Ideas de preparaciones rápidas para llevar
+- **Descripción:** Como estudiante que puede llevar comida desde casa, quiero ver ideas de preparaciones rápidas y económicas, para planificar algo accesible antes de salir.
+- **Criterios de Aceptación:**
+  - **CA01:** Cada idea debe indicar tiempo de preparación y costo aproximado.
+  - **CA02:** Las ideas deben usar ingredientes comunes y fáciles de conseguir.
+  - **CA03:** El estudiante debe poder guardar las ideas en favoritas.
+- **Escenarios (Gherkin):**
+  1. **Ver ideas**
+     - **DADO** que el estudiante se encuentra en la sección "Para llevar"
+     - **CUANDO** consulta las ideas disponibles
+     - **ENTONCES** el sistema muestra cada idea con su tiempo de preparación y costo aproximado.
+  2. **Guardar una idea**
+     - **DADO** que el estudiante observa una idea de preparación
+     - **CUANDO** pulsa el icono de favorito
+     - **ENTONCES** el sistema guarda la idea en su lista de favoritas.
+
+---
+
+## Épica EP04 – Orientación sobre hierro y anemia
+
+### HU-026: Aviso de alcance de la orientación
+- **Descripción:** Como usuario de la aplicación, quiero ver un aviso de que la orientación no reemplaza la consulta profesional, para comprender el alcance de las recomendaciones.
+- **Criterios de Aceptación:**
+  - **CA01:** El aviso debe mostrarse la primera vez que el estudiante ingresa a la sección de hierro.
+  - **CA02:** El aviso debe estar redactado en lenguaje claro y breve.
+  - **CA03:** El aviso debe poder consultarse nuevamente desde el perfil.
+- **Escenarios (Gherkin):**
+  1. **Primer ingreso**
+     - **DADO** que el estudiante ingresa por primera vez a la sección de hierro
+     - **CUANDO** se carga la sección
+     - **ENTONCES** el sistema muestra el aviso de alcance y el botón "Entendido".
+  2. **Consultar nuevamente**
+     - **DADO** que el estudiante ya aceptó el aviso
+     - **CUANDO** abre "Aviso de alcance" desde su perfil
+     - **ENTONCES** el sistema muestra el mismo texto del aviso.
+
+### HU-027: Microcontenidos sobre fuentes de hierro
+- **Descripción:** Como estudiante con conocimiento parcial sobre anemia, quiero leer microcontenidos breves sobre alimentos fuente de hierro, para saber qué alimentos puedo incorporar a mi rutina.
+- **Criterios de Aceptación:**
+  - **CA01:** Cada microcontenido debe poder leerse en menos de 30 segundos.
+  - **CA02:** El contenido debe usar lenguaje cotidiano y evitar términos clínicos innecesarios.
+  - **CA03:** Cada microcontenido debe incluir un ejemplo de opción accesible.
+- **Escenarios (Gherkin):**
+  1. **Abrir un microcontenido**
+     - **DADO** que el estudiante se encuentra en la sección de hierro
+     - **CUANDO** selecciona un microcontenido
+     - **ENTONCES** el sistema muestra un texto breve con un ejemplo de opción accesible.
+  2. **Navegar entre contenidos**
+     - **DADO** que el estudiante está leyendo un microcontenido
+     - **CUANDO** pulsa el botón "Siguiente"
+     - **ENTONCES** el sistema muestra el siguiente microcontenido.
+
+### HU-028: Etiqueta "Fuente de hierro"
+- **Descripción:** Como estudiante que quiere cuidarse, quiero ver la etiqueta "Fuente de hierro" en las alternativas que correspondan, para identificar rápidamente opciones relevantes para prevenir anemia.
+- **Criterios de Aceptación:**
+  - **CA01:** La etiqueta debe mostrarse en la tarjeta y en el detalle de la alternativa.
+  - **CA02:** La etiqueta debe acompañarse de texto y no depender solo del color.
+  - **CA03:** Solo las alternativas respaldadas por una fuente oficial deben llevar la etiqueta.
+- **Escenarios (Gherkin):**
+  1. **Etiqueta visible**
+     - **DADO** que el estudiante se encuentra en el listado de alternativas
+     - **CUANDO** una alternativa es fuente de hierro
+     - **ENTONCES** el sistema muestra la etiqueta "Fuente de hierro" en su tarjeta.
+  2. **Explicación de la etiqueta**
+     - **DADO** que el estudiante abre el detalle de una alternativa con la etiqueta
+     - **CUANDO** consulta la etiqueta
+     - **ENTONCES** el sistema muestra una explicación breve de por qué la tiene.
+
+### HU-029: Filtro "Fuente de hierro"
+- **Descripción:** Como estudiante que busca prevenir la anemia, quiero filtrar las alternativas que sean fuente de hierro, para ver solo opciones relevantes para mi objetivo.
+- **Criterios de Aceptación:**
+  - **CA01:** El filtro debe estar disponible junto con los demás filtros del listado.
+  - **CA02:** El filtro debe poder combinarse con los de tiempo y presupuesto.
+  - **CA03:** Si no hay alternativas, el sistema debe mostrar un mensaje claro.
+- **Escenarios (Gherkin):**
+  1. **Activar el filtro**
+     - **DADO** que el estudiante visualiza el listado completo
+     - **CUANDO** activa el filtro "Fuente de hierro"
+     - **ENTONCES** el sistema muestra solo alternativas con esa etiqueta.
+  2. **Combinar con presupuesto**
+     - **DADO** que el estudiante tiene activo el filtro "Fuente de hierro"
+     - **CUANDO** agrega el filtro "S/ 10"
+     - **ENTONCES** el sistema muestra solo alternativas que cumplen ambos filtros.
+
+### HU-030: Combinaciones alimentarias orientativas
+- **Descripción:** Como estudiante que duda cómo combinar alimentos, quiero conocer combinaciones alimentarias orientativas, para aprovechar mejor las fuentes de hierro en mis comidas.
+- **Criterios de Aceptación:**
+  - **CA01:** Cada combinación debe incluir un ejemplo concreto con alimentos accesibles.
+  - **CA02:** Cada combinación debe indicar su fuente oficial (MINSA u OMS).
+  - **CA03:** El contenido debe evitar lenguaje clínico y cantidades prescriptivas.
+- **Escenarios (Gherkin):**
+  1. **Consultar combinaciones**
+     - **DADO** que el estudiante se encuentra en la sección de hierro
+     - **CUANDO** abre "Combinaciones"
+     - **ENTONCES** el sistema muestra combinaciones con ejemplos y su fuente.
+  2. **Ver alternativas relacionadas**
+     - **DADO** que el estudiante visualiza una combinación
+     - **CUANDO** pulsa "Ver alternativas relacionadas"
+     - **ENTONCES** el sistema muestra las alternativas del listado vinculadas a esa combinación.
+
+### HU-031: Frecuencias de consumo orientativas
+- **Descripción:** Como estudiante que quiere cuidarse, quiero ver frecuencias de consumo orientativas basadas en guías oficiales, para organizar mi alimentación sin obsesionarme con cantidades.
+- **Criterios de Aceptación:**
+  - **CA01:** Las frecuencias deben presentarse como orientación general y no como indicación médica.
+  - **CA02:** Cada frecuencia debe incluir su fuente oficial.
+  - **CA03:** El contenido debe acompañarse del aviso de alcance.
+- **Escenarios (Gherkin):**
+  1. **Ver frecuencia orientativa**
+     - **DADO** que el estudiante se encuentra leyendo un microcontenido
+     - **CUANDO** abre "Frecuencia orientativa"
+     - **ENTONCES** el sistema muestra el texto con su fuente y el aviso de alcance.
+  2. **Contenido sin fuente**
+     - **DADO** que un contenido no tiene una fuente oficial asociada
+     - **CUANDO** el sistema prepara los contenidos para mostrarlos
+     - **ENTONCES** el sistema no publica ese contenido en la aplicación.
+
+### HU-032: Consultar la fuente de cada contenido
+- **Descripción:** Como estudiante que desea verificar la información, quiero consultar la fuente de cada contenido, para confiar en lo que leo.
+- **Criterios de Aceptación:**
+  - **CA01:** Cada microcontenido debe mostrar el nombre de su fuente.
+  - **CA02:** El sistema debe ofrecer un enlace a la fuente oficial.
+  - **CA03:** Si el enlace no está disponible, el sistema debe mostrar el nombre del documento.
+- **Escenarios (Gherkin):**
+  1. **Ver la fuente**
+     - **DADO** que el estudiante está leyendo un microcontenido
+     - **CUANDO** pulsa el botón "Ver fuente"
+     - **ENTONCES** el sistema muestra el nombre y el enlace de la fuente oficial.
+  2. **Enlace no disponible**
+     - **DADO** que el enlace de la fuente no responde
+     - **CUANDO** el estudiante pulsa "Ver fuente"
+     - **ENTONCES** el sistema muestra el nombre del documento y un mensaje indicando que no se pudo abrir el enlace.
+
+### HU-033: Mitos y verdades sobre la anemia
+- **Descripción:** Como estudiante con dudas sobre la anemia, quiero ver mitos y verdades en un formato breve, para corregir ideas equivocadas.
+- **Criterios de Aceptación:**
+  - **CA01:** El contenido debe presentarse en formato de pregunta y respuesta corta.
+  - **CA02:** Cada respuesta debe incluir su fuente.
+  - **CA03:** El sistema debe mostrar como máximo cinco tarjetas por pantalla.
+- **Escenarios (Gherkin):**
+  1. **Revelar la respuesta**
+     - **DADO** que el estudiante se encuentra en "Mitos y verdades"
+     - **CUANDO** pulsa una tarjeta
+     - **ENTONCES** el sistema muestra la respuesta junto con su fuente.
+  2. **Volver a la lista**
+     - **DADO** que el estudiante revisó una respuesta
+     - **CUANDO** pulsa el botón "Volver"
+     - **ENTONCES** el sistema regresa a la lista conservando su posición.
+
+### HU-034: Guardar un microcontenido para después
+- **Descripción:** Como estudiante con poco tiempo, quiero guardar un microcontenido para leerlo después, para retomarlo cuando tenga una pausa más larga.
+- **Criterios de Aceptación:**
+  - **CA01:** Cada microcontenido debe mostrar un icono para guardar.
+  - **CA02:** El sistema debe ofrecer una lista de "Guardados".
+  - **CA03:** El estudiante debe poder quitar contenidos de la lista.
+- **Escenarios (Gherkin):**
+  1. **Guardar contenido**
+     - **DADO** que el estudiante está leyendo un microcontenido
+     - **CUANDO** pulsa el icono de guardar
+     - **ENTONCES** el sistema agrega el contenido a la lista de "Guardados".
+  2. **Quitar contenido**
+     - **DADO** que el estudiante se encuentra en la lista de "Guardados"
+     - **CUANDO** pulsa el botón "Quitar" en un contenido
+     - **ENTONCES** el sistema lo elimina de la lista.
+
+---
+
+## Épica EP05 – Hábitos y seguimiento ligero
+
+### HU-035: Guardar alternativas favoritas
+- **Descripción:** Como estudiante que repite sus elecciones, quiero guardar alternativas como favoritas, para volver a elegirlas rápidamente en otra pausa.
+- **Criterios de Aceptación:**
+  - **CA01:** El icono de favorito debe estar disponible en la tarjeta y en el detalle.
+  - **CA02:** El icono debe cambiar de estado al guardar o quitar una favorita.
+  - **CA03:** El guardado debe ser inmediato y sin pasos adicionales.
+- **Escenarios (Gherkin):**
+  1. **Guardar favorita**
+     - **DADO** que el estudiante observa una tarjeta del listado
+     - **CUANDO** pulsa el icono de favorito
+     - **ENTONCES** el sistema guarda la alternativa y cambia el estado del icono.
+  2. **Quitar favorita**
+     - **DADO** que la alternativa ya está guardada como favorita
+     - **CUANDO** el estudiante pulsa nuevamente el icono
+     - **ENTONCES** el sistema la quita de favoritas y el icono vuelve a su estado inicial.
+
+### HU-036: Ver y gestionar mis favoritas
+- **Descripción:** Como estudiante con rutinas de comida, quiero ver mis favoritas en una sola lista, para elegir sin tener que buscar de nuevo.
+- **Criterios de Aceptación:**
+  - **CA01:** La lista debe usar el mismo formato de tarjeta (tiempo, precio y etiqueta).
+  - **CA02:** La lista debe ser accesible desde la navegación principal.
+  - **CA03:** Si no hay favoritas, el sistema debe mostrar un mensaje que invite a guardar.
+- **Escenarios (Gherkin):**
+  1. **Ver la lista**
+     - **DADO** que el estudiante tiene alternativas guardadas
+     - **CUANDO** abre la sección "Favoritas"
+     - **ENTONCES** el sistema muestra todas sus favoritas en una lista.
+  2. **Lista vacía**
+     - **DADO** que el estudiante no ha guardado ninguna alternativa
+     - **CUANDO** abre la sección "Favoritas"
+     - **ENTONCES** el sistema muestra un mensaje que lo invita a guardar alternativas.
+
+### HU-037: Planificar mi próxima comida
+- **Descripción:** Como estudiante con jornadas continuas, quiero elegir con anticipación mi próxima comida, para evitar decisiones de último momento o saltarme comidas.
+- **Criterios de Aceptación:**
+  - **CA01:** El detalle de la alternativa debe ofrecer la opción "Planificar".
+  - **CA02:** El estudiante debe poder elegir el día y la hora de su comida.
+  - **CA03:** La comida planificada debe mostrarse en la pantalla de inicio.
+- **Escenarios (Gherkin):**
+  1. **Planificar una comida**
+     - **DADO** que el estudiante se encuentra en el detalle de una alternativa
+     - **CUANDO** selecciona "Planificar" y elige un horario
+     - **ENTONCES** el sistema guarda la planificación y la muestra en la pantalla de inicio.
+  2. **Horario pasado**
+     - **DADO** que el estudiante elige un horario que ya pasó
+     - **CUANDO** confirma la planificación
+     - **ENTONCES** el sistema indica que debe elegir un horario posterior.
+
+### HU-038: Recordatorio de comida
+- **Descripción:** Como estudiante que suele olvidar comer entre clases, quiero recibir un recordatorio de mi comida planificada, para no saltarme comidas.
+- **Criterios de Aceptación:**
+  - **CA01:** El recordatorio debe enviarse en el horario elegido por el estudiante.
+  - **CA02:** El mensaje debe incluir el nombre de la alternativa planificada.
+  - **CA03:** El recordatorio debe ser opcional y activarse a elección del estudiante.
+- **Escenarios (Gherkin):**
+  1. **Recibir el recordatorio**
+     - **DADO** que el estudiante planificó una comida con recordatorio para las 12:30
+     - **CUANDO** llega la hora programada
+     - **ENTONCES** el sistema envía una notificación con el nombre de la alternativa.
+  2. **Sin permiso de notificaciones**
+     - **DADO** que el estudiante no ha autorizado las notificaciones
+     - **CUANDO** intenta activar un recordatorio
+     - **ENTONCES** el sistema solicita el permiso y explica para qué se usará.
+
+### HU-039: Editar o cancelar recordatorios
+- **Descripción:** Como estudiante con horario variable, quiero editar o cancelar mis recordatorios, para adaptarlos a mi día.
+- **Criterios de Aceptación:**
+  - **CA01:** El sistema debe mostrar una lista de recordatorios activos.
+  - **CA02:** El estudiante debe poder modificar el horario de un recordatorio.
+  - **CA03:** La cancelación debe solicitar confirmación antes de eliminar el recordatorio.
+- **Escenarios (Gherkin):**
+  1. **Editar horario**
+     - **DADO** que el estudiante tiene un recordatorio activo
+     - **CUANDO** cambia el horario y pulsa "Guardar"
+     - **ENTONCES** el sistema actualiza el recordatorio y notifica en el nuevo horario.
+  2. **Cancelar recordatorio**
+     - **DADO** que el estudiante tiene un recordatorio activo
+     - **CUANDO** selecciona "Cancelar" y confirma
+     - **ENTONCES** el sistema elimina el recordatorio.
+
+### HU-040: Registrar cómo me sentí después de comer
+- **Descripción:** Como estudiante que quiere identificar qué le funciona, quiero registrar con una pulsación cómo me sentí después de comer, para reconocer qué opciones me ayudan a rendir mejor en clases.
+- **Criterios de Aceptación:**
+  - **CA01:** El sistema debe ofrecer las opciones "Ligero", "Normal" y "Pesado".
+  - **CA02:** El registro debe completarse con una sola pulsación.
+  - **CA03:** La consulta debe aparecer después de seleccionar una alternativa y no debe bloquear el uso de la aplicación.
+- **Escenarios (Gherkin):**
+  1. **Registrar una respuesta**
+     - **DADO** que el estudiante seleccionó una alternativa y recibe la consulta
+     - **CUANDO** elige la opción "Ligero"
+     - **ENTONCES** el sistema guarda la respuesta y muestra un agradecimiento breve.
+  2. **Omitir el registro**
+     - **DADO** que el estudiante recibe la consulta sobre cómo se sintió
+     - **CUANDO** cierra el mensaje sin responder
+     - **ENTONCES** el sistema continúa sin registrar ninguna respuesta.
+
+### HU-041: Resumen de cómo me sentí
+- **Descripción:** Como estudiante que quiere reconocer patrones, quiero ver un resumen simple de cómo me sentí con mis últimas elecciones, para identificar qué alternativas me sientan mejor.
+- **Criterios de Aceptación:**
+  - **CA01:** El resumen debe mostrar las últimas siete respuestas registradas.
+  - **CA02:** La información debe presentarse con iconos y texto, sin tablas complejas.
+  - **CA03:** Si no hay datos, el sistema debe mostrar un mensaje explicativo.
+- **Escenarios (Gherkin):**
+  1. **Ver el resumen**
+     - **DADO** que el estudiante registró respuestas previas
+     - **CUANDO** abre la sección "Mi resumen"
+     - **ENTONCES** el sistema muestra sus últimas respuestas asociadas a cada alternativa.
+  2. **Sin datos**
+     - **DADO** que el estudiante no ha registrado ninguna respuesta
+     - **CUANDO** abre la sección "Mi resumen"
+     - **ENTONCES** el sistema muestra un mensaje que explica cómo empezar a registrar.
+
+### HU-042: Historial de alternativas elegidas
+- **Descripción:** Como estudiante que repite sus comidas, quiero ver el historial de alternativas que seleccioné, para volver a elegir las que me funcionaron.
+- **Criterios de Aceptación:**
+  - **CA01:** El historial debe estar ordenado por fecha, de la más reciente a la más antigua.
+  - **CA02:** Desde el historial, el estudiante debe poder volver a seleccionar una alternativa o guardarla como favorita.
+  - **CA03:** El estudiante debe poder eliminar elementos del historial.
+- **Escenarios (Gherkin):**
+  1. **Ver el historial**
+     - **DADO** que el estudiante ha seleccionado alternativas anteriormente
+     - **CUANDO** abre la sección "Historial"
+     - **ENTONCES** el sistema muestra las alternativas ordenadas por fecha.
+  2. **Elegir de nuevo**
+     - **DADO** que el estudiante visualiza una alternativa en su historial
+     - **CUANDO** pulsa el botón "Elegir de nuevo"
+     - **ENTONCES** el sistema abre la confirmación de selección de esa alternativa.
+
+### HU-043: Resumen semanal de mis elecciones
+- **Descripción:** Como estudiante que quiere mejorar sus hábitos, quiero ver un resumen semanal de mis elecciones, para observar mi avance de forma sencilla.
+- **Criterios de Aceptación:**
+  - **CA01:** El resumen debe mostrar cuántas alternativas elegí y cuántas fueron ligeras o fuente de hierro.
+  - **CA02:** El mensaje debe usar un lenguaje positivo y no culpabilizante.
+  - **CA03:** El resumen no debe incluir conteo de calorías ni metas de peso.
+- **Escenarios (Gherkin):**
+  1. **Ver el resumen semanal**
+     - **DADO** que el estudiante usó la aplicación durante una semana
+     - **CUANDO** abre la sección "Mi semana"
+     - **ENTONCES** el sistema muestra el resumen de sus elecciones de esa semana.
+  2. **Semana sin actividad**
+     - **DADO** que el estudiante no seleccionó alternativas durante la semana
+     - **CUANDO** abre la sección "Mi semana"
+     - **ENTONCES** el sistema muestra un mensaje motivador sin reproche.
+
+---
+
+## Épica EP06 – Funciones complementarias de organización y seguridad alimentaria
+
+### HU-044: Lista de compras para preparaciones
+- **Descripción:** Como estudiante que lleva comida desde casa, quiero generar una lista de compras a partir de una preparación guardada, para organizar ingredientes sin perder tiempo.
+- **Criterios de Aceptación:**
+  - **CA01:** Cada preparación debe ofrecer la acción «Crear lista de compras».
+  - **CA02:** La lista debe mostrar ingredientes y cantidades referenciales, sin duplicar elementos idénticos.
+  - **CA03:** El estudiante debe poder marcar ingredientes como conseguidos.
+- **Escenarios (Gherkin):**
+  1. **Generar lista**
+     - **DADO** que el estudiante visualiza una preparación guardada
+     - **CUANDO** selecciona «Crear lista de compras»
+     - **ENTONCES** el sistema muestra los ingredientes de esa preparación.
+  2. **Marcar ingrediente**
+     - **DADO** que el estudiante tiene una lista de compras
+     - **CUANDO** marca un ingrediente como conseguido
+     - **ENTONCES** el sistema cambia el estado de ese elemento y lo conserva.
+
+### HU-045: Consultar ingredientes y alérgenos
+- **Descripción:** Como estudiante con restricciones alimentarias, quiero consultar ingredientes y alérgenos declarados de una alternativa, para descartar opciones que no pueda consumir.
+- **Criterios de Aceptación:**
+  - **CA01:** El detalle debe mostrar ingredientes conocidos y alérgenos declarados.
+  - **CA02:** Cuando falte información, debe indicarse «Información no confirmada» sin asumir seguridad.
+  - **CA03:** Los alérgenos declarados deben diferenciarse visualmente mediante texto e icono.
+- **Escenarios (Gherkin):**
+  1. **Consultar alérgenos**
+     - **DADO** que el estudiante abre una alternativa con datos registrados
+     - **CUANDO** selecciona «Ingredientes y alérgenos»
+     - **ENTONCES** el sistema muestra la lista y sus advertencias.
+  2. **Información ausente**
+     - **DADO** que la alternativa no tiene registro de alérgenos
+     - **CUANDO** abre la sección de ingredientes
+     - **ENTONCES** el sistema comunica que la información no está confirmada.
+
+### HU-046: Editar o cancelar una comida planificada
+- **Descripción:** Como estudiante cuyo horario de clases cambia, quiero editar o cancelar una comida planificada, para ajustar mi organización sin crear otra planificación.
+- **Criterios de Aceptación:**
+  - **CA01:** La comida planificada debe ofrecer acciones «Editar» y «Cancelar».
+  - **CA02:** Al editar, se deben conservar los datos anteriores hasta confirmar el cambio.
+  - **CA03:** Al cancelar, debe desaparecer la comida planificada del resumen de inicio.
+- **Escenarios (Gherkin):**
+  1. **Editar horario**
+     - **DADO** que existe una comida planificada para las 12:30
+     - **CUANDO** cambia la hora a 13:00 y confirma
+     - **ENTONCES** el sistema actualiza la planificación y presenta la nueva hora.
+  2. **Cancelar comida**
+     - **DADO** que existe una comida planificada
+     - **CUANDO** selecciona «Cancelar» y confirma
+     - **ENTONCES** el sistema retira la planificación y muestra un mensaje de éxito.
+
+### HU-047: Marcar una comida planificada como consumida
+- **Descripción:** Como estudiante que sigue su planificación, quiero marcar la comida como consumida después de realizarla, para mantener un registro simple de mis acciones.
+- **Criterios de Aceptación:**
+  - **CA01:** Una comida planificada debe mostrar la opción «Marcar como consumida».
+  - **CA02:** La confirmación debe actualizar su estado a «Consumida» y registrar la fecha.
+  - **CA03:** No debe marcarse como consumida sin una acción explícita del usuario.
+- **Escenarios (Gherkin):**
+  1. **Registrar consumo**
+     - **DADO** que el estudiante visualiza una comida planificada pendiente
+     - **CUANDO** selecciona «Marcar como consumida»
+     - **ENTONCES** el sistema registra el consumo y cambia el estado.
+  2. **Evitar registro automático**
+     - **DADO** que la comida ya pasó de hora y sigue pendiente
+     - **CUANDO** revisa su inicio
+     - **ENTONCES** el sistema mantiene el estado pendiente sin dar por hecho su consumo.
+
+### HU-048: Compartir una alternativa alimentaria
+- **Descripción:** Como estudiante que coordina su comida con compañeros, quiero compartir una alternativa mediante un enlace o resumen, para facilitar la elección conjunta.
+- **Criterios de Aceptación:**
+  - **CA01:** El detalle debe mostrar una acción «Compartir».
+  - **CA02:** El contenido compartido debe incluir nombre, precio referencial y lugar sin datos personales.
+  - **CA03:** Si el navegador no admite compartir, debe ofrecerse «Copiar información».
+- **Escenarios (Gherkin):**
+  1. **Compartir opción**
+     - **DADO** que el estudiante visualiza el detalle de una alternativa
+     - **CUANDO** pulsa «Compartir»
+     - **ENTONCES** el sistema prepara un resumen con nombre, precio y lugar.
+  2. **Copiar información**
+     - **DADO** que la función de compartir no está disponible
+     - **CUANDO** selecciona «Copiar información»
+     - **ENTONCES** el sistema permite copiar el resumen de la alternativa.

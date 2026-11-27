@@ -1,6 +1,6 @@
 # NutriCampus
 
-Landing page responsive y demo interactiva de NutriCampus, alineada con los mockups Web/Móvil, Arquitectura, User Flows, Needfinding y la trazabilidad de 30 HU core.
+Landing page responsive y demo interactiva de NutriCampus, alineada con los mockups Web/Móvil, Arquitectura, User Flows y 30 HU core.
 
 ## Archivos
 
@@ -16,4 +16,9 @@ Abre `index.html` en un navegador moderno. La página no requiere servidor ni pa
 
 ## Publicación
 
-Es un sitio estático y puede alojarse en GitHub Pages, Netlify, Vercel u otro hosting estático. La publicación no está configurada porque aún no se indicó un proveedor ni un repositorio/dominio destino.
+El proyecto está publicado en GitHub Pages:
+
+- Repositorio: https://github.com/peakingl3/nutricampus-landing
+- Landing Page: https://peakingl3.github.io/nutricampus-landing/
+
+GitHub Pages sirve la versión de la rama `main` desde la raíz del repositorio.
